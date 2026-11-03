@@ -1,0 +1,21 @@
+# Strategic merge patch for the platform's EXISTING Deployment.
+# Do NOT run 'kubectl apply -f' on this partial file.
+# Verify the hostPath is a real local directory on mtt-s5000-01.
+spec:
+  template:
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: mtt-s5000-01
+      containers:
+        - name: mt-musa-s5000-736
+          resources:
+            requests:
+              memory: 512Gi
+            limits:
+              memory: 512Gi
+      volumes:
+        - name: 8cbd0001-79bc-4a42-8634-cb394fd3d76b
+          $patch: replace
+          hostPath:
+            path: /data01/models/Qwen3.5-122B-A10B
+            type: Directory
